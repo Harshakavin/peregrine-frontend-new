@@ -1,0 +1,18 @@
+<div class="container col topnav">
+  <div class="row" style="height: 82px;">
+  <div class="col pull-right">
+    <img src="../assets/logo.png" style="height: auto; width:80px"><h2 style="margin-top: -66px; margin-left: 71px">Peregrine </h2>
+  <p style="margin-left: 100px;margin-top: -10px;height: 0px;font-weight: lighter">News aggregator</p>
+  </div>
+  <div class="col col-md-6 pull-left">
+          <div *ngIf="disable" class="pull-right ml-auto admin-bar hidden-sm-down">
+            <a style="color: white" href="#" class="nav-link">{{name}} <img class="img-fluid rounded-circle" style="height: 50px" src="../assets/user-p.png"></a>
+            <a style="color: dodgerblue;margin-top: -12px;margin-left: 112px;font-size: 13px;"(click)="logout()" href="javascript:void(0)" class="nav-link">Logout</a>
+          </div>
+    <div *ngIf="!disable" style="top: 50%" class="pull-right ml-auto admin-bar hidden-sm-down ">
+      <button class="btn button btn-warning" type="button" [routerLink]="['/signup']">Sign up</button>
+    </div>
+
+    </div>
+  </div>
+</div>

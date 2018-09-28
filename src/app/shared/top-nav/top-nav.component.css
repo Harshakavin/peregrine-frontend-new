@@ -1,0 +1,52 @@
+.topnav{
+background: rgb(251,245,245);
+background: linear-gradient(90deg, rgba(251,245,245,1) 60%, rgba(47,79,79,0.8071603641456583) 84%, rgba(71,70,70,1) 100%);/* ie6-9 */
+}
+.button {
+    margin-right: 13px;
+    display: inline-block;
+    padding: 5px 16px;
+    font-size: 18px;
+    margin-top: 25%;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 3px #66d22c;
+}
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.button2 {
+    margin-right: 13px;
+    display: inline-block;
+    padding: 5px 16px;
+    font-size: 18px;
+    margin-top: 2%;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 3px dodgerblue;
+}
+
+.button2:hover {background-color: #0000ff}
+
+.button2:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}

@@ -1,0 +1,747 @@
+
+
+<app-top-nav></app-top-nav>
+<section id="tabs">
+	<div>
+		<!--<p style="font-size: 25px;">Categories</p>-->
+		<div>
+			<div>
+				<nav style="background: darkslategray; width: 100%;">
+          <div class="col-sm-8" style="height: 63px">
+              <div style="height:10px;width: 10px;">
+                <img height="50px" style="margin-top: 10px;" src="./../../assets/icon-glasses-white.png">
+              </div>
+              <div class="input-group py-2 px-3" style="margin-left: 54%">
+              <input type="text" class="form-control round-input" placeholder="Search" (keypress)="keyDown($event,SearchKey)" #SearchKey>
+              <div class="input-group-append">
+                 <button class="btn btn-success round-input" type="button" (click)="searchBatch(SearchKey)">  <i class="fa fa-search" aria-hidden="true"></i> </button>
+                 <!--<a class="btn-outline-primary" (click)="searchBatch(SearchKey)"><img style="width: 40px; height: 40px;" src="../../assets/Gnome_maps_icon.svg.png"></a>-->
+                 <div>
+                 <button class="btn btn-primary btn-block" [routerLink]="['/view']" type="button"><i class="fa fa-home" aria-hidden="true"></i> Home </button>
+                </div>
+              </div>
+              </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+<div class="row">
+
+  <div class="col-sm-4">
+
+  <div class="container">
+	<div class="row">
+		<div class="left">
+        <ul>
+            <a [routerLink]="['/view']" >
+                <li class="item-menu">
+                    <span class="fa fa-home"></span>
+                    <span class="menu">Home</span>
+                </li>
+            </a>
+            <a (click)="change(1)">
+                <li class="item-menu">
+                    <span class="fa fa-pencil"></span>
+                    <span class="menu">Editor</span>
+                </li>
+            </a>
+            <a (click)="change(2)">
+                <li class="item-menu">
+                    <span class="fa fa-book"></span>
+                    <span class="menu">Summarize Your Article</span>
+                </li>
+            </a>
+
+            <a (click)="change(3)">
+                <li class="item-menu">
+                    <span class="fa fa-search-plus"></span>
+                    <span class="menu">Scan Your Articles</span>
+                </li>
+            </a>
+            <a (click)="change(4)">
+                <li class="item-menu">
+                    <span class="fa fa-search-plus"></span>
+                    <span class="menu">Find Similar Articles</span>
+                </li>
+            </a>
+
+            <a (click)="change(5)">
+                <li class="item-menu">
+                    <span class="fa fa-database"></span>
+                    <span class="menu">Your Articles</span>
+                </li>
+            </a>
+
+            <a (click)="change(7)">
+                <li class="item-menu">
+                    <span class="fa fa-eye"></span>
+                    <span class="menu">Review</span>
+                </li>
+            </a>
+
+            <a (click)="change(6)">
+                <li class="item-menu">
+                    <span class="fa fa-credit-card"></span>
+                    <span class="menu">Payment</span>
+                </li>
+            </a>
+
+
+
+        </ul>
+    </div> <!-- end left -->
+    </div>
+	</div>
+
+  </div>
+
+<div class="container-fluid" style="background-color: white">
+
+
+  <div class="edit col-md-12" *ngIf="step === 1 ">
+
+   <div class="row">
+    <div class="t-bar-height">
+      <div class="jumbotron welcome p-1 t-left2">
+    <span><h3 class="font-weight-bold">Peregrine Article Editor <i class="fa fa-edit"></i></h3></span>
+    <p class="lead text-justify">You can make anything by writing.</p>
+    </div>
+    </div>
+    <button class="wCount  btn-group-sm btn-default">{{count}}</button>
+    <span class="save btn-group pull-right">
+             <button (click)="change(3)" class="btn btn-group-sm btn-sm btn-success"><i class="fa fa-flag fa-1x"></i> Check Up</button>
+             <button (click)="reset()" data-title="review" data-toggle="modal" data-target="#review"  class="btn btn-group-sm  btn-secondary"><i class="fa fa-edit fa-1x"></i> Submit to Review</button>
+             <button (click)="reset()" data-title="edit" data-toggle="modal" data-target="#edit"  class=" btn btn-group-sm btn-primary"> Save</button>
+
+      </span>
+    </div>
+    <div class="t-left2">
+      <div class="col-xl-12" (keyup)="wordCount()" >
+		     <app-ngx-editor class="col-xl-12" [height]="400" [config]="editorConfig" [(ngModel)]="htmlContent"></app-ngx-editor>
+      </div>
+    </div>
+
+	</div>
+
+   <div class="edit col-md-12" *ngIf="step === 2 ">
+
+     <div class="row">
+    <div class="t-bar-height">
+    <div class="jumbotron welcome p-1 t-left2">
+    <span><h3 class="font-weight-bold">Summarize Your Article <i class="fa fa-edit"></i></h3></span>
+    <p class="lead text-justify">You can Summarize any article you need.</p>
+    </div>
+    </div >
+           <span>
+
+             <button style="width: 200px" (click)="summarize()" class="save btn-block {{loading}} btn-lg btn-primary"> Summarize <i class="fa fa-search-plus"></i></button>
+
+           </span>
+    </div>
+	  <div class=" t-left2" >
+	     <div class="col-xl-12">
+		  <app-ngx-editor class="col-xl-12"  [height]="400" [config]="editorConfig" [spellcheck]="true" [(ngModel)]="summarizeContent"></app-ngx-editor>
+     </div>
+     <div class="col-xl-12">
+       <h5 style="height: 20px">Summarized Content </h5>
+       <hr>
+       <div class="container">
+          <hr>
+          <p class="pull-left">{{summarized}}</p>
+       </div>
+    </div>
+    </div>
+
+
+   </div>
+
+   <div class="edit col-md-12" *ngIf="step === 3 ">
+   <div class="row">
+    <div class=" t-bar-height" >
+    <div class="jumbotron welcome p-1 t-left2">
+    <span><h3 class="font-weight-bold">Scan Your Article Content <i class="fa fa-edit"></i></h3></span>
+    <p class="lead text-justify">You can check your perfect article content with us.</p>
+    </div>
+    </div >
+     <span>
+       <button style="width: 200px" class="save btn {{loading}} btn-block btn-primary" (click)="scan()"> Scan <i class="fa fa-search-plus"></i></button>
+     </span>
+   </div>
+     <div class=" t-left2" >
+		 <div class="col-xl-12" >
+      <app-ngx-editor class="col-xl-12"  [height]="400" [config]="editorConfig" [(ngModel)]="scanContent"></app-ngx-editor>
+      </div>
+      <div class="col-xl-12" >
+       <h5>Results  </h5>
+       <hr>
+        <br>
+        <ul>
+          <div  style="margin-top: 50px" class="row" *ngFor="let vio of  scanResults;let i = index">
+
+            <li>
+              <!-- <span class="row" style="margin-left: 10px;">
+                 <span style="color: red"><i class="fa fa-flag"></i></span> <h6 style="margin-left: 3px"> Content :</h6>  {{ vio.content}}
+              </span> -->
+
+              <span  class="row" style="margin-left: 10px;">
+                <span style="color: darkslategrey"><i class="fa fa-arrow-circle-o-right"></i></span> <h6 style="margin-left: 3px"> Rule :</h6>  {{ vio.rule}}
+              </span>
+
+            </li>
+
+         </div>
+        </ul>
+
+    </div>
+
+
+   </div>
+
+
+   </div>
+
+   <div class="edit col-md" *ngIf="step === 4 ">
+
+    <div class="row">
+    <div class=" t-bar-height">
+    <div class="jumbotron welcome p-1 t-left2" >
+    <span><h3 class="font-weight-bold">Find Similar Articles <i class="fa fa-edit"></i></h3></span>
+    <p class="lead text-justify">You can find similar articles like you wrote.</p>
+    </div>
+    </div >
+      <span>
+        <button style="width: 200px" (click)="serchSimilarArticles()" class="save btn  {{loading}} btn-block btn-primary"> Find <i class="fa fa-search"></i></button>
+       </span>
+    </div>
+     <div class=" t-left2" >
+		 <div class="col-xl-12" >
+      <app-ngx-editor class="col-xl-12"  [height]="400" [config]="editorConfig" [(ngModel)]="similarContent"></app-ngx-editor>
+     </div>
+     <div class="col-md-12" style="min-height: 500px; overflow: auto;" >
+       <h5>Similar Articles </h5>
+       <hr>
+       <br>
+       <div class="container" *ngFor="let article of similarArticles ">
+
+         <span class="row">
+          <i class="fa fa-pencil-square-o"></i>  <h5>{{article.heading}}</h5>
+         </span>
+         <span class="row">
+            <p>{{article.content}}</p>
+         </span>
+           <span class="row">
+            <a href="article.link">{{article.link}}</a>
+         </span>
+         <hr>
+       </div>
+    </div>
+    </div>
+
+
+   </div>
+
+   <div class="edit " *ngIf="step === 5 ">
+
+   <div class=" t-bar-height">
+   <div class="jumbotron welcome p-1 t-left2" >
+    <span><h3 class="font-weight-bold">Your Articles <i class="fa fa-database"></i></h3></span>
+    <p class="lead text-justify">We are keeping your articles safe.</p>
+    </div>
+    </div>
+    <hr>
+     <div class="panel-body t-left2" style="height: 1000px;">
+
+            <div class="panel-body">
+              <!--<h1 class="text-center" *ngIf="tmpempty">Sorry, You don't have any previously created templates. </h1>-->
+              <!--<h3 class="text-center" *ngIf="tmpempty">Try creating a new template. </h3>-->
+            </div>
+            <div class="panel-body">
+
+              <div class="row mt-4">
+                <div class="col-sm-6 col-md-6  col-lg-4 col-xl-4" *ngFor="let template of templates; let i = index">
+                  <div class="card my-3">
+                      <div class="card-header bg-light  text-center artifact-card-header">
+                    <div>
+                    </div>
+                    <img class="artifact-img" src="../../assets/article.png" alt="artifact" width="90px">
+                     </div>
+                    <div class="card-body ">
+                       <span class="card-title">
+                          <h3 class=" text-center">{{template.name}}</h3>
+                        </span>
+                             <div class="card-text ">Content: {{getRightContent(template.content)}} </div>
+                    </div>
+                    <div class="card-footer">
+
+                      <button  (click)="use(template.content)" class="btn btn-success btn-sm">
+                        <i  class="fa fa-list"></i> Use</button>
+
+                      <button data-toggle="modal" (click)="setDeleteId(template._id)" data-target="#delete"  class="btn btn-danger btn-sm pull-right" >
+                        <i class="fa fa-trash" ></i> Delete</button>
+                      </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="panel-footer mt-4">
+              <div class="row ">
+                <div class="col mt-3">
+
+                </div>
+              </div>
+            </div>
+
+                  <!--<div class="modal-header">-->
+                    <!--<h4 class="modal-title custom_align">Delete Template</h4>-->
+                    <!--<button type="button" class="close" (click)="modalRef.hide()" aria-hidden="true">-->
+                      <!--<span class="fa fa-close fa-1x"></span>-->
+                    <!--</button>-->
+                  <!--</div>-->
+                  <!--<div *ngIf="!popupStatus">-->
+                    <!--<div class="modal-body">-->
+
+                      <!--<div class="alert alert-danger">-->
+                        <!--<span class="fa fa-warning-sign"></span>Are you sure you want to delete this template?</div>-->
+
+                    <!--</div>-->
+                    <!--<div class="modal-footer ">-->
+                      <!--<button type="button" (click)="deteleTemplate()" class="btn btn-success">-->
+                       <!-- Yes</button>-->
+                      <!--<button type="button" class="btn btn-default close" class="btn btn-warning" (click)="modalRef.hide()"> No</button>-->
+                    <!--</div>-->
+                  <!--</div>-->
+
+                  <!--</div> &ndash;&gt;-->
+
+
+
+
+        </div>
+
+   </div>
+
+  <div class="edit col-md-12" *ngIf="step === 6 ">
+
+    <div class=" t-bar-height" >
+    <div class="jumbotron welcome p-1 t-bar-height">
+    <span><h3 class="font-weight-bold">Payment <i class="fa fa-credit-card"></i></h3>
+    <p class="lead text-justify">Your Payments.</p></span>
+    <p class="lead text-justify"></p>
+    </div>
+    </div>
+    <hr>
+    <div class="row t-left2" style="margin-left:67px;min-height: 500px;">
+      <div class="col-md-6">
+       <div class="container">
+               <div class="row">
+                <div class="text-center">
+                    <h1>Receipt</h1>
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>#</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="col-md-9"><em>Free Tier For Month</em></td>
+                            <td class="col-md-1" style="text-align: center"> 2 </td>
+                            <td class="col-md-1 text-center">$0</td>
+                            <td class="col-md-1 text-center">$0</td>
+                        </tr>
+
+                        <tr>
+                            <td>   </td>
+                            <td>   </td>
+                            <td class="text-right">
+                            <p>
+                                <strong>Subtotal: </strong>
+                            </p>
+                            <p>
+                                <strong>Tax: </strong>
+                            </p></td>
+                            <td class="text-center">
+                            <p>
+                                <strong>$0</strong>
+                            </p>
+                            <p>
+                                <strong>$0</strong>
+                            </p></td>
+                        </tr>
+                        <tr>
+                            <td>   </td>
+                            <td>   </td>
+                            <td class="text-right"><h4><strong>Total: </strong></h4></td>
+                            <td class="text-center text-danger"><h4><strong>$0</strong></h4></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+       </div>
+      </div>
+      <div class="col-md-6">
+      <div class="container" style="border: 1.5px solid grey; border-radius: 5px; ">
+            <div class="row">
+            <div class="col-xs-4 col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1 class="text-center">
+                        Payment Details
+                    </h1>
+                    <div class="checkbox pull-right">
+                        <label>
+                            <input type="checkbox" />
+                            Remember
+                        </label>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form role="form">
+                    <div class="form-group">
+                        <label for="cardNumber">
+                            CARD NUMBER</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="cardNumber" placeholder="Valid Card Number"
+                                required autofocus />
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-7 col-md-7">
+                            <div class="form-group">
+                                <label for="expityMonth">
+                                    EXPIRY DATE</label>
+                                <div class="col-lg-6 pl-ziro">
+                                    <input type="text" class="form-control" id="expityMonth" placeholder="MM" required />
+                                </div>
+                                <div class="col-lg-6 pl-ziro">
+                                    <input type="text" class="form-control" id="expityYear" placeholder="YY" required /></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-5 col-md-5 pull-right">
+                            <div class="form-group">
+                                <label for="cvCode">
+                                    CV CODE</label>
+                                <input type="password" class="form-control" id="cvCode" placeholder="CV" required />
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            <ul class="row nav nav-pills nav-stacked" style="background-color: #00ee00;height: 40px">
+                <li> <h5>Total Payment : <span>$0</span></h5></li>
+            </ul>
+            <br/>
+            <a href="http://www.jquery2dotnet.com" class="btn btn-success btn-lg btn-block" role="button">Pay</a>
+          <br>
+          <br>
+          <br>
+        </div>
+    </div>
+</div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+  <div class="edit col-md-12" *ngIf="step === 7 ">
+
+    <div class="col-md-12 t-bar-height ">
+    <div class="jumbotron welcome p-1 t-left2" >
+    <span><h3 class="font-weight-bold">Review <i class="fa fa-envelope-square"></i></h3></span>
+     <p class="lead text-justify">You can send you article to someone to review.</p>
+    </div>
+    </div>
+    <div class="t-left" style="min-height: 500px">
+
+       <ul class="nav nav-tabs" style="margin-top: 12px">
+        <li class="nav-link" [ngClass]="{'active' : tab === true}" (click)="tab = true " ><a>Inbox</a></li>
+        <li class="nav-link" [ngClass]="{'active' : tab === false}" (click)="tab = false" ><a>Sent</a> </li>
+       </ul>
+       <br>
+       <div *ngIf="tab === true" class="container-fluid">
+
+          <ul class="mail-list" *ngFor="let msges of inbox">
+                       <li class="msg row" style="width: 100%;" >
+                           <a   style="margin-left: 0px;" class="row col-md-12" href="javascript:0">
+                             <div class="col-md-6 pull-left">
+                               <span class="mail-subject"><i class="fa fa-edit"></i>{{ ' '+msges.subject}}</span>
+                               <span class="mail-message-preview includes">{{ getRightContent(msges.content)}}</span>
+                               <!--<span class="mail-message-preview">You have ten more subscriptions click her...</span>-->
+                               <div >
+                               <input [disabled]="check(msges) !== ''" [value]="check(msges)" (keyup)="setComment($event.target)" (keydown)="reset()"  type='text' class="form-control " name="name" placeholder="Enter your comment here..">
+                               </div>
+                             </div>
+                             <div style="right: 0;" class="col-md-4 pull-right">
+                               <div class="btn-group pull-right">
+                               <button (click)="use(msges.content)" class="btn btn-md btn-success pull-right">View</button>
+                               <button data-toggle="modal" data-target="#sReview" [disabled]="comment === '' || check(msges) !== ''" (click)="submitReview(msges)" class="btn btn-md btn-primary pull-right"><span *ngIf="check(msges) === ''">Submit</span>
+                               <span *ngIf="check(msges) !== ''">Submitted</span></button>
+                               <!--<button class="btn btn-md btn-warning pull-right">Bad</button>-->
+                               </div>
+                               <br>
+                               <br>
+                               <p class="pull-right">{{msges.time.toString().split('T')[0]}}</p>
+                             </div>
+                           </a>
+                         <hr>
+                       </li>
+          </ul>
+
+       </div>
+       <div *ngIf="tab === false" class="container-fluid">
+
+          <ul class="mail-list" *ngFor="let msges of allMail">
+                       <li class="msg row" style="width: 100%;" *ngIf="msges.username === 'pasansilva@gmail.com'">
+                           <a  (click)="use(msges.content)"  style="margin-left: 0px;" class="row col-md-12" href="javascript:0">
+                             <div class="col-md-6 pull-left">
+                               <span class="mail-subject"><i class="fa fa-edit"></i>{{ ' '+msges.subject}}</span>
+                               <span class="mail-message-preview includes">{{ getRightContent(msges.content)}}</span>
+
+                              <div class="row">
+                               <span class="col-md-8"  *ngFor="let user of msges.senders">
+                                 {{user.name+' '}}
+                                 <i *ngIf="user.status === '' " class="fa fa-clock-o "></i>
+                                 <span style="color: #00ee00" *ngIf="user.status !== '' " class="fa fa-check-circle">:{{user.status}}</span>
+                                 <!--<i *ngIf="user.status === 'medium' " class="fa fa-clock-o"></i>-->
+                                 <!--<i *ngIf="user.status === 'bad' " class="fa fa-exclamation-circle"></i>-->
+                               </span>
+                              </div>
+                             </div>
+                             <div style="right: 0;" class="col-md-4 pull-right">
+                               <button [ngClass]="{'btn-success': msges.status === 'Accepted' }" class="btn btn-md btn-default pull-right">{{msges.status}}</button>
+                               <br>
+                                <br>
+                               <p class="pull-right">{{msges.time.toString().split('T')[0]}}</p>
+                             </div>
+
+                           </a>
+                         <hr>
+                       </li>
+          </ul>
+
+       </div>
+
+
+    </div>
+
+  </div>
+
+  </div>
+  </div>
+ </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <!--// modal-->
+	<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+			<div class="modal-dialog">
+				<!-- <form [formGroup]="updateUserForm" (ngSubmit)="updateData(user)"> -->
+					<div class="modal-content">
+
+						<div class="modal-header">
+							<h4 class="modal-title custom_align" id="Heading">Save article</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+								<span class="fa fa-close pointer fa-1x"></span>
+							</button>
+						</div>
+					<div class="modal-body">
+            <div *ngIf="!popState">
+            <input [(ngModel)]="name" type='text' class="form-control " name="name" placeholder="Enter article name">
+						<div class="alert alert-success">
+
+					 <span class="fa fa-info-sign"></span> Are you sure you want to save this article?</div>
+            </div>
+            <div *ngIf="popState">
+
+              			<div class="alert alert-success">
+                    {{message}}
+                    </div>
+            </div>
+
+					</div>
+
+					<div class="modal-footer ">
+						   <button type="button" [disabled]="popState" (click)="save()" class="btn {{loading}} btn-success btn-group-sm">
+							<span class="fa fa-ok-sign"></span>Yes</button>
+
+            		   <button type="button" data-dismiss="modal" aria-hidden="true" (click)="reset()" class="btn {{loading}} btn-warning btn-group-sm">
+							<span class="fa fa-ok-sign"></span>Close</button>
+
+					</div>
+				</div>
+      </div>
+  </div>
+
+
+
+ 	<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true">
+			<div class="modal-dialog">
+				<!-- <form [formGroup]="updateUserForm" (ngSubmit)="updateData(user)"> -->
+					<div class="modal-content">
+
+						<div class="modal-header">
+							<h4 class="modal-title custom_align" id="Heading">Delete Your Article</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+								<span class="fa fa-close pointer fa-1x"></span>
+							</button>
+						</div>
+					<div class="modal-body">
+            <div *ngIf="!popState">
+						<div class="alert alert-success">
+					  <span class="fa fa-info-sign"></span> Are you sure you want to delete this article?</div>
+            </div>
+            <div *ngIf="popState">
+
+              			<div class="alert alert-success">
+                    {{message}}
+                    </div>
+            </div>
+
+					</div>
+
+					<div class="modal-footer ">
+						   <button type="button" [disabled]="popState" (click)="deleteArticles()" class="btn {{submit}} btn-success btn-group-sm">
+							<span class="fa fa-ok-sign"></span>Yes</button>
+
+            		   <button type="button" data-dismiss="modal" aria-hidden="true" (click)="reset()" class="btn {{submit}} btn-warning btn-group-sm">
+							<span class="fa fa-ok-sign"></span>Close</button>
+
+					</div>
+				</div>
+      </div>
+  </div>
+
+
+
+ 	<div class="modal fade" id="review" tabindex="-1" role="dialog" aria-labelledby="review" aria-hidden="true">
+			<div class="modal-dialog">
+				<!-- <form [formGroup]="updateUserForm" (ngSubmit)="updateData(user)"> -->
+					<div class="modal-content">
+
+						<div class="modal-header">
+							<h4 class="modal-title custom_align" id="Heading">Submit to Review Your Article</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+								<span class="fa fa-close pointer fa-1x"></span>
+							</button>
+						</div>
+					<div class="modal-body">
+
+            <div *ngIf="!popState">
+            <input [(ngModel)]="name" (keydown)="reset()"  type='text' class="form-control " name="name" placeholder="Enter article subject">
+            <br>
+            <select (change)="setValue($event.target.value)"  class="form-control"  >
+                        <option value="" selectedabled hidden class="text-primary">Select Users</option>
+                        <option  *ngFor="let key of userslist"   value="{{key.name}}" >
+                          {{key.name}}
+                        </option>
+
+             </select>
+              <div class="btn-group-sm py-1">
+                  <button type="button" [disabled]="popState" (click)="reset()" class="btn btn-default btn-group-sm pull-right">Reset</button>
+                  <button type="button" [disabled]="popState" (click)="addUsers()" class="btn btn-success btn-group-sm pull-right">Add</button>
+              </div>
+             <br>
+              <div class="container">
+                  <ul *ngFor="let user of addedUsers">
+                       <li>
+                         <span class="mail-sender">{{user.name}}</span>
+                       </li>
+                  </ul>
+              </div>
+
+             <div style="font-size: 13px" class="alert alert-success" *ngIf="addedUsers.length >0">
+             <span class="fa fa-info-sign"></span> Are you sure you want to submit this article to these people?</div>
+
+              <div *ngIf="message !== ''" class="py-2 alert alert-danger">
+                    {{message}}
+              </div>
+            </div>
+
+
+            <div *ngIf="popState">
+
+              			<div class="alert alert-success">
+                    {{message}}
+                    </div>
+            </div>
+
+					</div>
+
+					<div class="modal-footer ">
+						   <button type="button" [disabled]="popState" (click)="submitToReview()" class="btn {{loading}} btn-success btn-group-sm">
+							<span class="fa fa-ok-sign"></span>Yes</button>
+
+            		   <button type="button" data-dismiss="modal" aria-hidden="true" (click)="reset()" class="btn {{loading}} btn-warning btn-group-sm">
+							<span class="fa fa-ok-sign"></span>Close</button>
+
+					</div>
+				</div>
+      </div>
+  </div>
+
+
+
+ 	<div class="modal fade" id="sReview" tabindex="-1" role="dialog" aria-labelledby="sReview" aria-hidden="true">
+			<div class="modal-dialog">
+				<!-- <form [formGroup]="updateUserForm" (ngSubmit)="updateData(user)"> -->
+					<div class="modal-content">
+
+						<div class="modal-header">
+							<h4 class="modal-title custom_align" id="Heading">Summit Your Review</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+								<span class="fa fa-close pointer fa-1x"></span>
+							</button>
+						</div>
+					<div class="modal-body">
+            <div *ngIf="!popState">
+						<div class="alert alert-success">
+					  <span class="fa fa-info-sign"></span> Are you sure you want to submit the review ?</div>
+            </div>
+            <div *ngIf="popState">
+
+              			<div class="alert alert-success">
+                    {{message}}
+                    </div>
+            </div>
+
+					</div>
+					<div class="modal-footer ">
+						   <button type="button" [disabled]="popState" (click)="updateReview()" class="btn {{submit}} btn-success btn-group-sm">
+							<span class="fa fa-ok-sign"></span>Yes</button>
+
+            		   <button type="button" data-dismiss="modal" aria-hidden="true" (click)="reset()" class="btn {{submit}} btn-warning btn-group-sm">
+							<span class="fa fa-ok-sign"></span>Close</button>
+
+					</div>
+				</div>
+      </div>
+  </div>
